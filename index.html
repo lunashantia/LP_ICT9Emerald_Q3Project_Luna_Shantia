@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train fair</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"; rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+
+        body 
+        {background-color: rgb(3, 3, 95);}
+
+        .navbar
+        {padding-top: 3px;
+        padding-bottom: 3px;}
+
+        h1
+        {font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;}
+
+        h2
+        {font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;}
+
+        h3
+        {font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;}
+        
+        h5
+        {font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;}
+
+        p
+        {font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;}
+    </style>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-sm bg-light navbar-light fixed-top">
+
+        <div class="container-fluid">
+            <a class="navbar-brand" href="LOGO.png"><img src="LOGO.png" height="50px" width="50px" class="rounded-circle"></a>
+                
+
+        
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <ul class="navbar-nav me-auto">
+
+                    <li class="nav-item"> <a class="nav-link" href="index.html"><strong>PURCHASE</strong></a></li>
+                    <li class="nav-item"> <a class="nav-link" href="types.html"><strong>TICKET TYPES</strong></a></li>
+                    <li class="nav-item"> <a class="nav-link" href="schedule.html"><strong>SCHEDULE</strong></a></li>
+                    <li class="nav-item"> <a class="nav-link" href="contact.html"><strong>CONTACT US</strong></a></li>
+                </ul>
+            </div>
+
+            <form class="d-flex ms-auto">
+                <input class="form-control" type="text" placeholder="search...">
+                <button class="btn btn-success" type="button">Search</button>
+            </form>
+        </div>
+        
+    </nav>
+
+    <h1 style="margin-top: 93px; text-align: center; color: white; font-size: 43px;">RAIL TRANSIT</h1>
+
+    <h3 style="margin-top: 5px; text-align: center; color: white;">Fare Guide MRT-3</h3>
+
+    <div class="container-fluid mt-5">
+        <div class="row">
+
+            <div class="col-md-4 text-center">
+                <img src="map" alt="map" style="height: 233px; width: 350px; margin-left: 50px; margin-bottom: 60px; border: 5px solid; border-color: rgb(0, 0, 0);">
+            </div>
+
+        <div class= "col-md-8 text-white text-center col">
+            <details ontoggle="message()">
+                <summary><h4>TICKET PRICES</h4></summary>
+                <i>changes based on destination and discount</i>
+            </details>
+
+<br>
+
+<div class="d-flex gap-3">
+
+    <div style="width: 50%;">
+        <label>LEAVING FROM:</label>
+        <select class="form-select" id="leaving">
+            <option value="select">Select</option>
+            <option value="north">North Avenue</option>
+            <option value="quezon">Quezon Avenue</option>   
+            <option value="kam">Kamuning</option> 
+            <option value="araneta">Araneta Center-Cubao</option>  
+            <option value="santolan">Santolan-Annapolis</option>     
+            <option value="ort">Ortigas</option>       
+            <option value="shaw">Shaw Boulevard</option> 
+            <option value="boni">Boni</option> 
+            <option value="gua">Guadalupe</option> 
+            <option value="bue">Buendia</option>
+            <option value="ayala">Ayala</option>
+            <option value="mag">Magallanes</option>
+            <option value="taft">Taft Avenue</option>
+        </select>
+    </div>
+
+    <div style="width: 50%;">
+        <label>GOING TO:</label>
+        <select class="form-select" id="going">
+            <option value="select">Select</option>
+            <option value="north">North Avenue</option>
+            <option value="quezon">Quezon Avenue</option>   
+            <option value="kam">Kamuning</option> 
+            <option value="araneta">Araneta Center-Cubao</option>  
+            <option value="santolan">Santolan-Annapolis</option>     
+            <option value="ort">Ortigas</option>       
+            <option value="shaw">Shaw Boulevard</option> 
+            <option value="boni">Boni</option> 
+            <option value="gua">Guadalupe</option> 
+            <option value="bue">Buendia</option>
+            <option value="ayala">Ayala</option>
+            <option value="mag">Magallanes</option>
+            <option value="taft">Taft Avenue</option>
+        </select>
+    </div>
+
+</div>
+
+<br>
+
+            <div>
+            <form>
+                <label>DISCOUNT:</label>
+                <select class="form-select" id="discount">
+                 <option value="select2">Select</option>
+                 <option value="0">None</option>
+                 <option value="0.2">PWD</option>   
+                 <option value="0.2">Student</option> 
+                 <option value="0.2">Senior Citizen</option>  
+                 </select>
+            </form>
+        </div>
+
+<br>
+
+        <button class="btn m-4" type="button" onclick="updateFare(false)" style="color: white;">Check Fare</button>
+        <button class="btn m-3" type="button" onclick="updateFare(true)" style="color: white;">Discounted Fare</button>				
+</div>
+
+<div class="col-md-3">
+    <div class="box">
+        <h2 style="color: white;">Final Price</h2>
+        <br>
+        <h2 style="color: white;">Fare: <span id="fare">...</span></h2>
+    </div>
+</div>
+</div>
+</div>
+        
+<script>
+    var fares = {
+        "north-quezon": 13,
+        "north-kam": 13,
+        "north-araneta": 16,
+        "north-santolan": 16,
+        "north-ort": 20,
+        "north-shaw": 20,
+        "north-boni": 20,
+        "north-gua": 24,
+        "north-bue": 24,
+        "north-ayala": 24,
+        "north-mag": 28,
+        "north-taft": 28,
+    
+        "quezon-kam": 13,
+        "quezon-araneta": 13,
+        "quezon-santolan": 16,
+        "quezon-ort": 16,
+        "quezon-shaw": 20,
+        "quezon-boni": 20,
+        "quezon-gua": 20,
+        "quezon-bue": 20,
+        "quezon-ayala": 24,
+        "quezon-mag": 24,
+        "quezon-taft": 28,
+    
+        "kam-araneta": 13,
+        "kam-santolan": 13,
+        "kam-ort": 16,
+        "kam-shaw": 16,
+        "kam-boni": 20,
+        "kam-gua": 20,
+        "kam-bue": 20,
+        "kam-ayala": 24,
+        "kam-mag": 24,
+        "kam-taft": 24
+
+
+    };
+
+
+    
+    function updateFare(isDiscounted) {
+        var from = document.getElementById("leaving").value;
+        var to = document.getElementById("going").value;
+        var discount = document.getElementById("discount").value;
+    
+        if (from === "select" || to === "select") {
+            alert("Please select both starting and destination stations.");
+            return;
+        }
+    
+        var op = from + "-" + to;
+        var rc = to + "-" + from;
+        var baseFare = 0;
+    
+        if (from === to) {
+            baseFare = 0;
+        } else if (fares[op] !== undefined) {
+            baseFare = fares[op];
+        } else if (fares[rc] !== undefined) {
+            baseFare = fares[rc];
+        } else {
+            alert("Fare not found for this route.");
+            return;
+        }
+    
+        if (isDiscounted) {
+            if (discount === "Student" || discount === "Senior Citizen" || discount === "pwd") {
+                baseFare *= 0.8;
+            } else if (discount === "none") {
+            } else {
+                alert("Please select a valid discount type.");
+                return;
+            }
+        }
+    
+        document.getElementById("fare").textContent = "₱" + baseFare.toFixed(2);
+    }
+    </script>
+    
+
+/body>
+</html>
